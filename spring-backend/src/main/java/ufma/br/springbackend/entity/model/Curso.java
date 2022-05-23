@@ -6,13 +6,13 @@ import org.hibernate.annotations.Type;
 import ufma.br.springbackend.entity.model.curso_egresso.CursoEgresso;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Table(name = "curso")
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -32,4 +32,12 @@ public class Curso {
 
     @Column(name="nivel")
     private String level;
+
+    public Curso() {
+        this.cursoEgresso = new HashSet<>();
+    }
+
+    public int getQuantCursoEgresso() {
+        return cursoEgresso.size();
+    }
 }

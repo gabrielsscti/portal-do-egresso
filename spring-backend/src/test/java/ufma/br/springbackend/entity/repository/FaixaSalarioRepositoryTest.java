@@ -6,25 +6,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ufma.br.springbackend.entity.model.Curso;
-import ufma.br.springbackend.entity.model.Egresso;
+import ufma.br.springbackend.entity.model.FaixaSalario;
 
 import javax.transaction.Transactional;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class CursoRepositoryTest {
+public class FaixaSalarioRepositoryTest {
     @Autowired
-    CursoRepository repository;
+    FaixaSalarioRepository faixaSalarioRepository;
 
     @Test
     @Transactional
-    public void shouldSaveEgressoRepository(){
-        var curso = Curso.builder().name("Teste")
-                .level("A")
+    public void shouldSaveFaixaSalarioRepository() {
+        var faixaSalario = FaixaSalario.builder()
+                .descricao("descricao_teste")
                 .build();
 
-        var saved = repository.save(curso);
+        var saved = faixaSalarioRepository.save(faixaSalario);
 
         Assertions.assertNotNull(saved);
     }
