@@ -3,41 +3,32 @@ package ufma.br.springbackend.entity.model;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import ufma.br.springbackend.entity.model.curso_egresso.CursoEgresso;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "curso")
+@Table(name="cargo")
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Curso {
+public class Cargo {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name="id_curso", unique = true, nullable = false)
+    @Column(name="id_cargo", unique = true, nullable = false)
     @Type(type = "pg-uuid")
     private UUID id;
 
-    @OneToMany(mappedBy = "curso")
-    Set<CursoEgresso> cursoEgresso;
+    @OneToMany(mappedBy = "cargo")
+    Set<ProfEgresso> profEgresso;
 
     @Column(name="nome")
     private String name;
 
-    @Column(name="nivel")
-    private String level;
-
-    public Curso() {
-        this.cursoEgresso = new HashSet<>();
-    }
-
-    public int getQuantCursoEgresso() {
-        return cursoEgresso.size();
-    }
+    @Column(name="descricao")
+    private String descricao;
 }

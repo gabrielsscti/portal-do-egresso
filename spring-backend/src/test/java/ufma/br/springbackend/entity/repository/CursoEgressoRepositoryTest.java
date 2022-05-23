@@ -10,7 +10,9 @@ import ufma.br.springbackend.entity.model.Curso;
 import ufma.br.springbackend.entity.model.curso_egresso.CursoEgresso;
 import ufma.br.springbackend.entity.model.Egresso;
 
+import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashSet;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -23,10 +25,11 @@ public class CursoEgressoRepositoryTest {
     EgressoRepository egressoRepository;
 
     @Test
-
+    @Transactional
     public void shouldSaveCursoEgressoRepository(){
         var curso = Curso.builder().name("Teste")
                 .level("A")
+                .cursoEgresso(new HashSet<>())
                 .build();
 
         var egresso = Egresso.builder().name("Teste")
@@ -34,6 +37,7 @@ public class CursoEgressoRepositoryTest {
                 .cpf("49392493210")
                 .resumo("Resumo teste")
                 .url_foto("https://test.com/fsdf2412")
+                .cursoEgresso(new HashSet<>())
                 .build();
 
         var cursoSaved = cursoRepository.save(curso);
@@ -49,10 +53,8 @@ public class CursoEgressoRepositoryTest {
         var saved = repository.save(cursoEgresso);
 
         Assertions.assertNotNull(saved);
-
-        repository.delete(saved);
-        cursoRepository.delete(cursoSaved);
-        egressoRepository.delete(egressoSaved);
+        Assertions.assertEquals(cursoSaved.getId(), saved.getCurso().getId());
+        Assertions.assertEquals(egressoSaved.getId(), saved.getEgresso().getId());
     }
 
 }

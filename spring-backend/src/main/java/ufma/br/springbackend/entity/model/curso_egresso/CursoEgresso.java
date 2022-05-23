@@ -1,18 +1,22 @@
 package ufma.br.springbackend.entity.model.curso_egresso;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 import ufma.br.springbackend.entity.model.Curso;
 import ufma.br.springbackend.entity.model.Egresso;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "curso_egresso")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class CursoEgresso implements Serializable {
     @EmbeddedId
@@ -65,5 +69,18 @@ public class CursoEgresso implements Serializable {
 
     @Column(name="data_conclusao")
     private Date dtConclusao;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CursoEgresso that = (CursoEgresso) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
 

@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import ufma.br.springbackend.entity.model.curso_egresso.CursoEgresso;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -13,7 +14,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "egresso")
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -28,6 +28,9 @@ public class Egresso {
     @OneToMany(mappedBy = "egresso")
     Set<CursoEgresso> cursoEgresso;
 
+    @OneToMany(mappedBy = "faixaSalario")
+    Set<ProfEgresso> profEgresso;
+
     @Column(name="nome")
     private String name;
     @Column(name="email")
@@ -38,6 +41,11 @@ public class Egresso {
     private String resumo;
     @Column(name="url_foto")
     private String url_foto;
+
+    public Egresso() {
+        this.cursoEgresso = new HashSet<>();
+        this.profEgresso  = new HashSet<>();
+    }
 
     @Override
     public String toString() {
@@ -61,5 +69,13 @@ public class Egresso {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public int getQuantCursoEgresso() {
+        return cursoEgresso.size();
+    }
+    
+    public int getQuantProfEgresso() {
+        return profEgresso.size();
     }
 }
