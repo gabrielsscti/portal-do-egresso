@@ -28,6 +28,9 @@ public class Egresso {
     @OneToMany(mappedBy = "egresso")
     Set<CursoEgresso> cursoEgresso;
 
+    @OneToMany(mappedBy = "faixaSalario")
+    Set<ProfEgresso> profEgresso;
+
     @Column(name="nome")
     private String name;
     @Column(name="email")
