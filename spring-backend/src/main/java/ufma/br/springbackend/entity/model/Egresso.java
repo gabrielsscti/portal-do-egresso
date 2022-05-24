@@ -28,8 +28,12 @@ public class Egresso {
     @OneToMany(mappedBy = "egresso")
     Set<CursoEgresso> cursoEgresso;
 
-    @OneToMany(mappedBy = "faixaSalario")
+    @OneToMany(mappedBy = "egresso")
     Set<ProfEgresso> profEgresso;
+
+    // TODO
+    // @OneToMany(mappedBy = "egresso")
+    // Set<ContatoEgresso> contatoEgresso;
 
     @Column(name="nome")
     private String name;
