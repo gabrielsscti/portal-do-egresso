@@ -39,7 +39,6 @@ public class CursoEgresso implements Serializable {
             }
         }
         return id;
-
     }
 
     @ManyToOne
